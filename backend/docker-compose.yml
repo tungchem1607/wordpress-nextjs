@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  app-wp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: php:8.2-fpm
+    container_name: app-wp
+    restart: unless-stopped
+    tty: true
+    environment:
+      WORDPRESS_DB_HOST: mariadb-wp
+      WORDPRESS_DB_USER: db_user
+      WORDPRESS_DB_PASSWORD: db_user_pass
+      WORDPRESS_DB_NAME: db_name
+    depends_on:
+      - mariadb-wp
+    volumes:
+      - ./wordpress:/var/www
+  mariadb-wp:
+    container_name: mariadb-wp
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: db_name
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+      MYSQL_RANDOM_ROOT_PASSWORD: "root_pass"
+    volumes:
+      - db_data:/var/lib/mysql
+  nginx-wp:
+    image: nginx:alpine
+    container_name: nginx-wp
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - ./wordpress:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - default
+volumes:
+  db_data:
