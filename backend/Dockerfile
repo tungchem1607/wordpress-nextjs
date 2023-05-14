@@ -47,12 +47,10 @@ RUN docker-php-ext-install gd
 # Install mcrypt
 RUN apt-get update && apt-get install -y \
     libmcrypt-dev
-RUN pecl install mcrypt &&
-    docker-php-ext-enable mcrypt
+RUN pecl install mcrypt && docker-php-ext-enable mcrypt
 
 # Install apcu
-RUN pecl install apcu &&
-    docker-php-ext-enable apcu
+RUN pecl install apcu && docker-php-ext-enable apcu
 
 # Install Imagemagick & PHP Imagick ext
 RUN apt-get update && apt-get install -y \
@@ -61,8 +59,7 @@ RUN apt-get update && apt-get install -y \
 RUN pecl install imagick && docker-php-ext-enable imagick
 
 # Install mongodb ext
-RUN pecl install mongodb &&
-    docker-php-ext-enable mongodb
+RUN pecl install mongodb && docker-php-ext-enable mongodb
 
 # Install xdebug
 RUN pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug
