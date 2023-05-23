@@ -1,1 +1,8 @@
-db_data/*
+db_data/mysql/*
+db_data/performance_schema/*
+db_data/sys/*
+db_data/aria_*
+db_data/ddl*
+db_data/ib*
+db_data/multi*
+db_data/mysql_*

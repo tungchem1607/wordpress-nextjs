@@ -505,7 +505,7 @@ function wp_debug_mode() {
 		defined( 'XMLRPC_REQUEST' ) || defined( 'REST_REQUEST' ) || defined( 'MS_FILES_REQUEST' ) ||
 		( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) ||
 		wp_doing_ajax() || wp_is_json_request() ) {
-		@ini_set( 'display_errors', 0 );
+		@ini_set( 'display_errors', 1 );
 	}
 }
 

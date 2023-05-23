@@ -13,29 +13,31 @@ services:
       - ./wordpress:/var/www/html
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     environment:
-      # WORDPRESS_DB_HOST: mariadb-wp
-      # WORDPRESS_DB_USER: db_user
-      # WORDPRESS_DB_PASSWORD: db_user_pass
-      # WORDPRESS_DB_NAME: db_name
-      WORDPRESS_DB_HOST: "134.209.100.8"
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: 1234@bcdE.
-      WORDPRESS_DB_NAME: tungchemblog
+      WORDPRESS_DB_HOST: mariadb-wp
+      WORDPRESS_DB_USER: db_user
+      WORDPRESS_DB_PASSWORD: db_user_pass
+      WORDPRESS_DB_NAME: db_name
+      # WORDPRESS_DB_HOST: "134.209.100.8"
+      # WORDPRESS_DB_USER: root
+      # WORDPRESS_DB_PASSWORD: 1234@bcdE.
+      # WORDPRESS_DB_NAME: tungchemblog
     # command: "chown -R www-data:www-data ./var/www"
-    # depends_on:
-    #   - mariadb-wp
+    depends_on:
+      - mariadb-wp
     
-  # mariadb-wp:
-  #   container_name: mariadb-wp
-  #   image: mariadb
-  #   restart: always
-  #   environment:
-  #     MYSQL_DATABASE: db_name
-  #     MYSQL_USER: db_user
-  #     MYSQL_PASSWORD: db_user_pass
-  #     MYSQL_RANDOM_ROOT_PASSWORD: "root_pass"
-  #   volumes:
-  #     - ./db_data:/var/lib/mysql
+  mariadb-wp:
+    container_name: mariadb-wp
+    image: mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: db_name
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+      MYSQL_RANDOM_ROOT_PASSWORD: "root_pass"
+    volumes:
+      - ./db_data:/var/lib/mysql
   nginx-wp:
     image: nginx:alpine
     container_name: nginx-wp

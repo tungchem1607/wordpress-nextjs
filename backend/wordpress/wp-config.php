@@ -4,6 +4,9 @@ define('FS_METHOD', 'direct');
 @ini_set('post_max_size', '64M');
 @ini_set('max_execution_time', '300');
 @ini_set( 'display_errors', 1 );
+// define('SHORTINIT', true);  // load minimal WordPress
+
+// require_once dirname(__FILE__) . '/../../../wp-load.php'; // WordPress loader
 /**
  * The base configuration for WordPress
  *
